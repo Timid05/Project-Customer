@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();     
+        rb = GetComponent<Rigidbody>();
     }
 
 
@@ -26,18 +26,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            direction = transform.forward;          
+            direction = transform.forward;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            direction = transform.forward * -1;         
+            direction = transform.forward * -1;
         }
         if (Input.GetKey(KeyCode.A))
-        {        
+        {
             direction = transform.right * -1;
         }
         if (Input.GetKey(KeyCode.D))
-        {       
+        {
             direction = transform.right;
         }
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
@@ -61,14 +61,20 @@ public class PlayerMovement : MonoBehaviour
             direction = Vector3.Normalize(direction);
         }
 
-
-        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (!GameManager.GetGameManager().inspecting)
         {
-            moving = false;
+            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                moving = false;
+            }
+            else
+            {
+                moving = true;
+            }
         }
         else
         {
-            moving = true;
+            direction = Vector3.zero;
         }
     }
 
