@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();     
     }
 
 
@@ -26,27 +26,49 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            direction = transform.forward;
-            moving = true;
+            direction = transform.forward;          
         }
-        else if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            direction = transform.forward * -1;
-            moving = true;
-        } 
-        else if(Input.GetKey(KeyCode.A))
-        {
-            moving = true;  
+            direction = transform.forward * -1;         
+        }
+        if (Input.GetKey(KeyCode.A))
+        {        
             direction = transform.right * -1;
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            moving = true;
+        if (Input.GetKey(KeyCode.D))
+        {       
             direction = transform.right;
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            direction = transform.right + transform.forward;
+            direction = Vector3.Normalize(direction);
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            direction = -transform.right + transform.forward;
+            direction = Vector3.Normalize(direction);
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            direction = -transform.right + -transform.forward;
+            direction = Vector3.Normalize(direction);
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            direction = transform.right + -transform.forward;
+            direction = Vector3.Normalize(direction);
+        }
+
+
+        if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            moving = false;
         }
         else
         {
-            moving = false;
+            moving = true;
         }
     }
 
