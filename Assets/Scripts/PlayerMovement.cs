@@ -13,15 +13,12 @@ public class PlayerMovement : MonoBehaviour
     float speed;
     bool moving;
 
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-
-
+    //Input handler that changes the direction of the player depending on the key pressed
     void InputHandler()
     {
         if (Input.GetKey(KeyCode.W))
@@ -74,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            moving = false;
             direction = Vector3.zero;
         }
     }

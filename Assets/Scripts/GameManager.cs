@@ -37,11 +37,23 @@ public class GameManager : MonoBehaviour
 
     public void EnterInspection(Vector3 corpsePos, float camDistance)
     {
-        cam.transform.position = corpsePos + Vector3.up * camDistance;
-        cam.transform.LookAt(corpsePos);
-        player.GetComponent<Renderer>().enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        inspecting = true;
+        if (cam != null && player != null)
+        {
+            inspecting = true;
+            cam.transform.position = corpsePos + Vector3.up * camDistance;
+            cam.transform.LookAt(corpsePos);
+            player.GetComponent<Renderer>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (cam == null) 
+        {
+            Debug.Log("GameManager did not find a camera");
+        }
+        if (player == null)
+        {
+            Debug.Log("GameManager did not find a GameObject with the tag 'Player'");
+        }
     }
 
     public void InspectionInput()

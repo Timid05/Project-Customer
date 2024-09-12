@@ -21,7 +21,14 @@ public class CorpseCheck : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         prompt = GameObject.FindGameObjectWithTag("CorpsePrompt");
 
-        prompt.SetActive(false);
+        if (prompt != null)
+        {
+            prompt.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("UI missing");
+        }
     }
 
     void InputHandler()
@@ -36,7 +43,14 @@ public class CorpseCheck : MonoBehaviour
     
     void Update()
     {
-        relativePos = player.transform.localPosition - transform.localPosition;
+        if (player != null)
+        {
+            relativePos = player.transform.localPosition - transform.localPosition;
+        }
+        else
+        {
+            Debug.Log("Corpse did not find GameObject with tag 'Player'");
+        }
 
         if (relativePos.magnitude < checkDistance && !GameManager.GetGameManager().inspecting)
         {
