@@ -76,9 +76,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
-
     void Movement()
     {
         if (moving)

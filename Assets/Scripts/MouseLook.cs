@@ -40,9 +40,5 @@ public class MouseLook : MonoBehaviour
                 Debug.Log("No GameObject with tag 'Player' has been found by the camera");
             }
         } 
-        else
-        {
-          
-        }
     }
 }
