@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     GameObject player;
 
     public bool inspecting;
+    public bool organGrabbed;
 
     private void Awake()
     {

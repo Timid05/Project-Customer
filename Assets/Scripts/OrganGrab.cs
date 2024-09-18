@@ -7,12 +7,17 @@ using Unity.VisualScripting;
 public class OrganGrab : MonoBehaviour
 {
     Camera cam;
+    [SerializeField]
     GameObject putBackPrompt;
 
     [SerializeField]
     float distanceToCamera;
     [SerializeField]
     float grabSpeed;
+    float grabLerp;
+    [SerializeField]
+    float rotateSpeed;
+    [SerializeField]
     bool grabbed;
 
     Vector3 startPos;
@@ -20,63 +25,59 @@ public class OrganGrab : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main;
-        putBackPrompt = GameObject.FindGameObjectWithTag("OrganPrompt");
+        cam = Camera.main;        
         startPos = transform.position;
-
-        if (putBackPrompt != null)
+        if (putBackPrompt != null  && putBackPrompt.activeSelf)
         {
             putBackPrompt.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("UI missing");
         }
     }
 
 
     private void OnMouseDown()
     {
-        if (cam != null)
+        if (cam != null && !GameManager.GetGameManager().organGrabbed)
         {
             if (GameManager.GetGameManager().inspecting && !grabbed)
             {
                 grabbed = true;
                 grabbedPos = cam.transform.position + Vector3.down * distanceToCamera;
-                grabSpeed = 0;
+                grabLerp = 0;
             }
         }
         else
         {
-            Debug.Log(name + "could not find camera");
+            if (cam == null)
+            {
+                Debug.Log(name + "could not find camera");
+            }
         }
     }
 
 
     void InspectingOrgan()
     {
-        if (grabSpeed < 1)
+        if (grabLerp < 1)
         {
-            grabSpeed = grabSpeed + Time.fixedDeltaTime;
+            grabLerp += grabSpeed * Time.fixedDeltaTime;
         }
 
         putBackPrompt.SetActive(true);
 
-        transform.localPosition = Vector3.Lerp(startPos, grabbedPos, grabSpeed);
+        transform.localPosition = Vector3.Lerp(startPos, grabbedPos, grabLerp);
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             transform.position = startPos;
             putBackPrompt.SetActive(false);
             grabbed = false;
+            GameManager.GetGameManager().organGrabbed = false;
         }
     }
-
     private void Update()
     {
         if (grabbed && GameManager.GetGameManager().inspecting)
         {
-          
             InspectingOrgan();
         }
         else
@@ -86,8 +87,25 @@ public class OrganGrab : MonoBehaviour
 
         if (!GameManager.GetGameManager().inspecting)
         {
-            grabbed = false;            
-            putBackPrompt.SetActive(false);
+            grabbed = false;
+            if (putBackPrompt.activeSelf)
+            {
+                putBackPrompt.SetActive(false);
+            }
+        }
+
+        if (grabbed)
+        {
+            GameManager.GetGameManager().organGrabbed = true;
+            if (Input.GetMouseButton(0))
+            {
+                float xRotation = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime;
+                transform.Rotate(Vector3.up, -xRotation);
+            }
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
         }
     }
 }

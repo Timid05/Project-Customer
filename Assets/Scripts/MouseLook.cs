@@ -19,17 +19,18 @@ public class MouseLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!GameManager.GetGameManager().inspecting)
         {
-            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100 * Time.deltaTime;
-            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100 * Time.deltaTime;
+            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100 * Time.fixedDeltaTime;
+            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100 * Time.fixedDeltaTime;
 
             xRotation += mouseX;
             yRotation -= mouseY;
 
             yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+
             transform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
             if (player != null)
             {
