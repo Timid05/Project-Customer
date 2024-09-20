@@ -7013,6 +7013,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5445585431714144921, guid: 8d2edca95a854bd468a04c6e76b9439e, type: 3}
+      propertyPath: m_Drag
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8207024995484353270, guid: 8d2edca95a854bd468a04c6e76b9439e, type: 3}
       propertyPath: mouseSensitivity
       value: 5
