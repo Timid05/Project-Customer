@@ -54,13 +54,22 @@ public class CorpseCheck : MonoBehaviour
 
         if (relativePos.magnitude < checkDistance && !GameManager.GetGameManager().inspecting)
         {
+            if (prompt != null){
             prompt.SetActive(true);
             inRange = true;
+            }
+            Debug.Log("Promt is null most likely not assigned, please check the assiment and make sure the gameobject is active");
         }
         else
         {
+            if(prompt != null){
             prompt.SetActive(false);
             inRange = false;
+            }
+            else{
+                Debug.Log("Promt is null most likely not assigned, please check the assignment make sure the gameobject is active");
+            }
+
         }
 
         InputHandler();
