@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bc033b19bd8b8094da6e8b6a45e4ab1a, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc033b19bd8b8094da6e8b6a45e4ab1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: -55110664561529532, guid: bc033b19bd8b8094da6e8b6a45e4ab1a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 29a76368fbcb52e4bb9b9e0405211045, type: 2}
+      objectReference: {fileID: 2100000, guid: 53b67dc65de388a4992b0e1bed1e1031, type: 2}
     - target: {fileID: 919132149155446097, guid: bc033b19bd8b8094da6e8b6a45e4ab1a, type: 3}
       propertyPath: m_Name
       value: pancreas

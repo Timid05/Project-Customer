@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteColor: {r: 0, g: 0, b: 0, a: 0}
   material: {fileID: 2100000, guid: 17e484a2ea45c8f488d77b4583124929, type: 2}
-  conditionName: Fibrosis
+  conditionName: Liver Fibrosis
   organType: 3
   isDefaultState: 0
   hasCancer: 0
