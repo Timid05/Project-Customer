@@ -49,7 +49,15 @@ public class OrganGrabManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager != null && gameManager.inspecting && !gameManager.organGrabbed && Input.GetMouseButtonDown(0))
+        if (!gameManager.inspecting && currentOrgan != null)
+        {
+            currentOrgan.transform.position = startPos;
+            currentOrgan.transform.rotation = startRotation;
+            putBackPrompt.SetActive(false);
+            grabbed = false;
+        }
+
+        if (gameManager != null && gameManager.inspecting && !gameManager.organGrabbed && Input.GetMouseButtonDown(0) && !gameManager.checklistOpen)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -105,22 +113,25 @@ public class OrganGrabManager : MonoBehaviour
             currentOrgan.transform.position = Vector3.Lerp(startPos, grabbedPos, grabLerp);
         }
 
-        // Rotate organ based on mouse movement
-        if (Input.GetMouseButton(0))
+        if (!gameManager.checklistOpen)
         {
-            float xRotation = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
-            currentOrgan.transform.Rotate(Vector3.up, -xRotation);
-        }
+            // Rotate organ based on mouse movement
+            if (Input.GetMouseButton(0))
+            {
+                float xRotation = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
+                currentOrgan.transform.Rotate(Vector3.up, -xRotation);
+            }
 
-        // Return organ if "E" is pressed
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            currentOrgan.transform.position = startPos;
-            currentOrgan.transform.rotation = startRotation; // Return to original rotation
-            grabbed = false;
-            currentOrgan = null;
-            putBackPrompt.SetActive(false);
-            gameManager.organGrabbed = false; // Reset organGrabbed
+            // Return organ if "E" is pressed
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentOrgan.transform.position = startPos;
+                currentOrgan.transform.rotation = startRotation; // Return to original rotation
+                grabbed = false;
+                currentOrgan = null;
+                putBackPrompt.SetActive(false);
+                gameManager.organGrabbed = false; // Reset organGrabbed
+            }
         }
     }
 }

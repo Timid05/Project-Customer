@@ -3875,7 +3875,7 @@ MonoBehaviour:
   - {fileID: 339965314}
   putBackPrompt: {fileID: 213101745}
   distanceToCamera: 1
-  grabSpeed: 1
+  grabSpeed: 3
   rotateSpeed: 200
 --- !u!1 &1315138256
 GameObject:
@@ -6028,6 +6028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfConditionsToApply: 3
+  numberOfRandomCancersToApply: 2
   organCategories:
   - OrganType: 0
     OrganObjects:
@@ -7257,6 +7258,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1726175927}
     m_Modifications:
+    - target: {fileID: 6064897958537273407, guid: 72a447d079050574690bd69bcf7f8936, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064897958537273407, guid: 72a447d079050574690bd69bcf7f8936, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.84
+      objectReference: {fileID: 0}
     - target: {fileID: 7315435041815369040, guid: 72a447d079050574690bd69bcf7f8936, type: 3}
       propertyPath: m_Name
       value: door_mesh
@@ -7825,7 +7834,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1011214770183122379, guid: de5d26491025c294aae6c25b9027bbee, type: 3}
       propertyPath: cameraDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2023927832999369433, guid: de5d26491025c294aae6c25b9027bbee, type: 3}
       propertyPath: m_Name

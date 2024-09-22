@@ -33,14 +33,14 @@ public class CorpseCheck : MonoBehaviour
 
     void InputHandler()
     {
-        if (inRange && Input.GetKeyDown(KeyCode.E)) 
+        if (inRange && Input.GetKeyDown(KeyCode.E))
         {
-           GameManager.GetGameManager().EnterInspection(transform.localPosition, cameraDistance);
-           inRange = false;
-           prompt.SetActive(false);
+            GameManager.GetGameManager().EnterInspection(transform.localPosition, cameraDistance);
+            inRange = false;
+            prompt.SetActive(false);
         }
     }
-    
+
     void Update()
     {
         if (player != null)
@@ -54,20 +54,26 @@ public class CorpseCheck : MonoBehaviour
 
         if (relativePos.magnitude < checkDistance && !GameManager.GetGameManager().inspecting)
         {
-            if (prompt != null){
-            prompt.SetActive(true);
-            inRange = true;
+            if (prompt != null)
+            {
+                prompt.SetActive(true);
+                inRange = true;
             }
-            Debug.Log("Promt is null most likely not assigned, please check the assiment and make sure the gameobject is active");
+            else
+            {
+                Debug.Log("Prompt is null most likely not assigned, please check the assignment and make sure the gameobject is active");
+            }
         }
         else
         {
-            if(prompt != null){
-            prompt.SetActive(false);
-            inRange = false;
+            if (prompt != null)
+            {
+                prompt.SetActive(false);
+                inRange = false;
             }
-            else{
-                Debug.Log("Promt is null most likely not assigned, please check the assignment make sure the gameobject is active");
+            else
+            {
+                Debug.Log("Prompt is null most likely not assigned, please check the assignment make sure the gameobject is active");
             }
 
         }
