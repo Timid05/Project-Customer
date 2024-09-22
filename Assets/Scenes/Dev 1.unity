@@ -6053,6 +6053,7 @@ MonoBehaviour:
   - OrganType: 7
     OrganObjects:
     - {fileID: 6294708120402677014}
+  cancerPrefab: {fileID: 3020016107408956086, guid: 8b1268f788767ef48a155637030c2a41, type: 3}
 --- !u!1001 &1970023827
 PrefabInstance:
   m_ObjectHideFlags: 0

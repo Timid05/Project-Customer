@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Liverdmg3
   m_EditorClassIdentifier: 
   spriteColor: {r: 0, g: 0, b: 0, a: 0}
+  material: {fileID: 0}
   conditionName: Heparocellular Carcinoma
   organType: 3
   isDefaultState: 0
-  hasCancer: 0
+  hasCancer: 1

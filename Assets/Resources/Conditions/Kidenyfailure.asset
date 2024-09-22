@@ -17,4 +17,4 @@ MonoBehaviour:
   conditionName: Kidney Failure
   organType: 7
   isDefaultState: 0
-  hasCancer: 0
+  hasCancer: 1
