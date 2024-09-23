@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6585291833967990875}
   - component: {fileID: 1060616203321727455}
+  - component: {fileID: 6522513504239656083}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -45,3 +46,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inspecting: 0
+  organGrabbed: 0
+  checklistOpen: 0
+--- !u!114 &6522513504239656083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4594734472567288155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d44717eebd56c24587245a147e480bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfConditionsToApply: 3
+  numberOfRandomCancersToApply: 2
+  organCategories:
+  - OrganType: 0
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 1
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 2
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 3
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 4
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 5
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 6
+    OrganObjects:
+    - {fileID: 0}
+  - OrganType: 7
+    OrganObjects:
+    - {fileID: 0}
+  cancerPrefab: {fileID: 7771834426198001031, guid: 5a6847c22c9b41e4e93ba22d536c247f, type: 3}
