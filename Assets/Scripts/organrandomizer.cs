@@ -160,7 +160,7 @@ public class ConditionManager : MonoBehaviour
         if (existingLog != null)
         {
             existingLog.HasCancer = true; // Mark cancer as applied
-            Debug.LogWarning($"{organ} + {existingLog.HasCancer}");
+            Debug.Log($"{organ} + {existingLog.HasCancer}");
         }
         else
         {
