@@ -57,7 +57,7 @@ public class CameraPositionManagerEditor : Editor
                 manager.cameraPositions[i].eventMethodName = EditorGUILayout.TextField("Event Method Name", manager.cameraPositions[i].eventMethodName);
             }
 
-            // New fields for animation
+            
             manager.cameraPositions[i].playAnimation = EditorGUILayout.Toggle("Play Animation", manager.cameraPositions[i].playAnimation);
             if (manager.cameraPositions[i].playAnimation)
             {
@@ -66,10 +66,10 @@ public class CameraPositionManagerEditor : Editor
                 manager.cameraPositions[i].animator = (Animator)EditorGUILayout.ObjectField("Animator", manager.cameraPositions[i].animator, typeof(Animator), true);
             }
 
-            // New field for shake during transition
+            
             manager.cameraPositions[i].shakeDuringTransition = EditorGUILayout.Toggle("Shake During Transition", manager.cameraPositions[i].shakeDuringTransition);
 
-            // Button to set the main camera to this point
+            
             if (GUILayout.Button("Set Main Camera to This Point"))
             {
                 SetMainCameraToPoint(manager.cameraPositions[i]);
@@ -80,7 +80,7 @@ public class CameraPositionManagerEditor : Editor
 
         GUILayout.Space(20);
 
-        // Add buttons for Save and Load
+        
         if (GUILayout.Button("Save Camera Positions"))
         {
             string path = EditorUtility.SaveFilePanel("Save Camera Positions", "", "CameraPositions.json", "json");

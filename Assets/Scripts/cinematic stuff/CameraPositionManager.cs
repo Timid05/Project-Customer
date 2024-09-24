@@ -20,18 +20,16 @@ public class CameraPositionManager : MonoBehaviour
         public bool applyShakeDuringPause = false;
         public bool applyEffect = false;
         public MonoBehaviour effectScript;
-        public bool triggerEvent = false; // New field for triggering events
-        public GameObject eventTarget; // Object to trigger the event on
-        public string eventMethodName; // Method name to trigger
+        public bool triggerEvent = false; 
+        public GameObject eventTarget; 
+        public string eventMethodName; 
+        public bool playAnimation = false; 
+        public float animationDelay = 0f; 
+        public int animatorParameter = 0; 
+        public Animator animator; 
 
-        // New fields for animation
-        public bool playAnimation = false; // New field to trigger animation
-        public float animationDelay = 0f; // Delay before starting animation
-        public int animatorParameter = 0; // Parameter to set in animator
-        public Animator animator; // Reference to the animator
-
-        // New field for shake during transition
-        public bool shakeDuringTransition = false; // Shake for the duration of the transition to the next point
+        
+        public bool shakeDuringTransition = false; 
     }
 
     public List<CameraPosition> cameraPositions = new List<CameraPosition>();
@@ -46,18 +44,18 @@ public class CameraPositionManager : MonoBehaviour
         {
             var point = cameraPositions[i];
 
-            // Draw the point
+            
             Gizmos.color = point.pointColor;
             Gizmos.DrawSphere(point.position, 0.01f);
 
-            // Draw the path to the next point
+            
             if (i < cameraPositions.Count - 1)
             {
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(point.position, cameraPositions[i + 1].position);
             }
 
-            // Draw the rotation direction
+            
             Gizmos.color = Color.red;
             Vector3 forwardDirection = point.rotation * Vector3.forward;
             Gizmos.DrawLine(point.position, point.position + forwardDirection * 0.5f);
