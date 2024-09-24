@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteColor: {r: 0, g: 0, b: 0, a: 0}
   material: {fileID: 2100000, guid: 3088f43fc272bf5469cf38db29308c7d, type: 2}
-  conditionName: Adrenaline Deficiency
+  conditionName: Adranalie defciency
   organType: 6
   isDefaultState: 0
   hasCancer: 0

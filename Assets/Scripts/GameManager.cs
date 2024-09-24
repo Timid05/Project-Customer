@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
         return mainManager;
     }
 
-    public List<string> correctConditions;
-    public List<string> selectedConditions;
-
     static GameManager mainManager = null;
 
     Camera cam;
@@ -57,16 +54,12 @@ public class GameManager : MonoBehaviour
         conditionManager = GetComponent<ConditionManager>();
         corpse = GameObject.Find("CorpseTest");
 
-        correctConditions = new List<string>();
-        selectedConditions = new List<string>();
-
         if (conditionManager == null)
         {
             Debug.LogError("GameManager object is missing ConditionManager script");
         }
         else
         {
-            conditionManager.enabled = false;
             corpse.SetActive(false);
             if (corpse == null)
             {
@@ -150,31 +143,6 @@ public class GameManager : MonoBehaviour
                 checklistOpen = true;
                 checklistUI.SetActive(true);
             }
-        }
-
-        if (checklistOpen && Input.GetKeyDown(KeyCode.E))
-        {
-            Scoring();
-        }
-    }
-
-    
-    void Scoring()
-    {
-        int score = 0;
-        foreach (string condition in selectedConditions)
-        {
-            if (correctConditions.Contains(condition))
-            {
-                score++;
-            }
-        }
-
-        Debug.Log("current score is " + score + " out of " + correctConditions.Count);
-
-        foreach (string condition in correctConditions)
-        {
-            Debug.Log("correct condition: " + condition);
         }
     }
 

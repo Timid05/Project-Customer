@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteColor: {r: 0.3773585, g: 0.14417943, b: 0.14417943, a: 0}
   material: {fileID: 0}
-  conditionName: Inflamed Pancreas
+  conditionName: Inflamed Pancrea
   organType: 4
   isDefaultState: 0
   hasCancer: 0
