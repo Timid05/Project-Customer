@@ -8,11 +8,11 @@ public class SceneLoader : MonoBehaviour
     GameManager manager;
     ConditionManager conditionManager;
 
+
     private void Start()
     {
         manager = GameManager.GetGameManager();
         conditionManager = manager.GetComponent<ConditionManager>();
-        conditionManager.enabled = false;
     }
     public void LoadScene(string sceneName)
     {
@@ -35,7 +35,7 @@ public class SceneLoader : MonoBehaviour
         }
         if (difficulty == "Expert")
         {
-            conditionManager.numberOfConditionsToApply = 12;
+            conditionManager.numberOfConditionsToApply = 6;
         }
 
         conditionManager.enabled = true;
