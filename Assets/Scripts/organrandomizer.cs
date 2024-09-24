@@ -4,6 +4,8 @@ using System.Linq;
 
 public class ConditionManager : MonoBehaviour
 {
+    GameManager gameManager;
+
     [SerializeField]
     public int numberOfConditionsToApply = 3;
 
@@ -21,8 +23,15 @@ public class ConditionManager : MonoBehaviour
     // List to keep track of applied conditions for later use
     private List<AppliedConditionLog> appliedConditionsLog = new List<AppliedConditionLog>();
 
+    private void Awake()
+    {
+        enabled = false;
+    }
+
     private void Start()
     {
+        gameManager = GameManager.GetGameManager();
+
         // Initialize the dictionary
         organDictionary = new Dictionary<OrganType, List<GameObject>>();
 
@@ -105,7 +114,8 @@ public class ConditionManager : MonoBehaviour
         Debug.Log("Applied " +numberOfConditionsToApply + " Conditions");
         foreach (var log in appliedConditionsLog)
         {
-            Debug.Log($"Organ: {log.OrganName}, Category: {log.OrganType}, Condition: {log.Condition.ConditionName}");
+            //Debug.Log($"Organ: {log.OrganName}, Category: {log.OrganType}, Condition: {log.Condition.ConditionName}");
+            Debug.Log("added " + log.Condition.ConditionName);
         }
     }
 
@@ -128,7 +138,8 @@ public class ConditionManager : MonoBehaviour
         }
 
         // Log application
-        Debug.Log($"Applied condition: {condition.ConditionName} to organ: {organ.name}");
+        //Debug.Log($"Applied condition: {condition.ConditionName} to organ: {organ.name}");
+        gameManager.correctConditions.Add(condition.ConditionName);
     }
 
     private void ApplyRandomCancers()
@@ -160,16 +171,15 @@ public class ConditionManager : MonoBehaviour
         if (existingLog != null)
         {
             existingLog.HasCancer = true; // Mark cancer as applied
-            Debug.Log($"{organ} + {existingLog.HasCancer}");
+            //Debug.Log($"{organ} + {existingLog.HasCancer}");
         }
         else
         {
             AppliedConditionLog log = new AppliedConditionLog(organ.name, GetOrganType(organ), null, true);
             appliedConditionsLog.Add(log); // Create and add new log entry
-            
         }
 
-        Debug.Log($"Random cancer applied to organ: {organ.name}");
+        //Debug.Log($"Random cancer applied to organ: {organ.name}");
     }
 }
 
