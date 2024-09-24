@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -16,10 +17,20 @@ public class GameManager : MonoBehaviour
     GameObject player;
     GameObject checklistUI;
     GameObject checklistPrompt;
+    
+    ConditionManager conditionManager;
+
+    [SerializeField]
+    GameObject difficultySelector;
+    [SerializeField]
+    GameObject corpse;
+    [SerializeField]
+    GameObject pc;
 
     public bool inspecting;
     public bool organGrabbed;
     public bool checklistOpen;
+    public bool gameStarted;
 
     private void Awake()
     {
@@ -40,11 +51,35 @@ public class GameManager : MonoBehaviour
         cam = Camera.main;
         checklistUI = GameObject.FindGameObjectWithTag("Checklist");
         checklistPrompt = GameObject.FindGameObjectWithTag("ListPrompt");
+        conditionManager = GetComponent<ConditionManager>();
+        corpse = GameObject.Find("CorpseTest");
 
-        if (checklistUI != null) 
-        { 
-           checklistUI.SetActive(false);
-        } 
+        if (conditionManager == null)
+        {
+            Debug.LogError("GameManager object is missing ConditionManager script");
+        }
+        else
+        {
+            corpse.SetActive(false);
+            if (corpse == null)
+            {
+                Debug.Log("deactivated, corpse is now null");
+            }
+        }
+
+        if (player != null)
+        {
+
+        }
+        else
+        {
+            Debug.LogError("GameManager could not find the player");
+        }
+
+        if (checklistUI != null)
+        {
+            checklistUI.SetActive(false);
+        }
         else
         {
             Debug.LogWarning("GameManager did not find Checklist UI");
@@ -72,7 +107,7 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (cam == null) 
+        if (cam == null)
         {
             Debug.Log("GameManager did not find a camera");
         }
@@ -111,10 +146,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    float pcLerp = 0;
+    [SerializeField]
+    float pcLerpSpeed;
     private void Update()
     {
-        if (inspecting) { 
-          InspectionInput();
+        if (inspecting)
+        {
+            InspectionInput();
+        }
+
+        if (gameStarted)
+        {
+            
+            corpse.SetActive(true);
+            difficultySelector.SetActive(false);
+            if (pcLerp <= 1)
+            {
+                pcLerp += pcLerpSpeed / 50 * Time.fixedDeltaTime;
+                cam.transform.position = Vector3.Lerp(cam.transform.position, player.transform.position + Vector3.up * 0.8f, pcLerp);
+            }
+        }
+        else
+        {
+            cam.transform.position = pc.transform.position + new Vector3(0, 0.7f, -1);
         }
     }
 }

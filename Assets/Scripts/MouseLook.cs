@@ -12,11 +12,12 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivity = 3;
 
     GameObject player;
+    GameManager manager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Cursor.lockState = CursorLockMode.Locked;
+        manager = GameManager.GetGameManager();
     }
 
     private void Update()
@@ -27,7 +28,7 @@ public class MouseLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!GameManager.GetGameManager().inspecting)
+        if (!manager.inspecting && manager.gameStarted)
         {
             xRotation += mouseX;
             yRotation -= mouseY;

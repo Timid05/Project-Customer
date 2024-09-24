@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
     Vector3 direction;
+    GameManager manager;
 
     [SerializeField]
     float speed;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        manager = GameManager.GetGameManager();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             direction = Vector3.Normalize(direction);
         }
 
-        if (!GameManager.GetGameManager().inspecting)
+        if (!manager.inspecting && manager.gameStarted)
         {
             if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {

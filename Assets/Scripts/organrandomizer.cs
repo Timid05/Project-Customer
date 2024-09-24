@@ -5,7 +5,7 @@ using System.Linq;
 public class ConditionManager : MonoBehaviour
 {
     [SerializeField]
-    private int numberOfConditionsToApply = 3;
+    public int numberOfConditionsToApply = 3;
 
     [SerializeField]
     private int numberOfRandomCancersToApply = 2; // Amount of random cancers to apply regardless of condition
@@ -102,7 +102,7 @@ public class ConditionManager : MonoBehaviour
         }
 
         // Log all applied conditions
-        Debug.Log("Applied Conditions:");
+        Debug.Log("Applied " +numberOfConditionsToApply + " Conditions");
         foreach (var log in appliedConditionsLog)
         {
             Debug.Log($"Organ: {log.OrganName}, Category: {log.OrganType}, Condition: {log.Condition.ConditionName}");
