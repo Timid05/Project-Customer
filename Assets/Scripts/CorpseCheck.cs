@@ -6,6 +6,7 @@ using TMPro;
 public class CorpseCheck : MonoBehaviour
 {
     GameObject player;
+    [SerializeField]
     GameObject prompt;
 
     Vector3 relativePos;
@@ -19,7 +20,6 @@ public class CorpseCheck : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        prompt = GameObject.FindGameObjectWithTag("CorpsePrompt");
 
         if (prompt != null)
         {

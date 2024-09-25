@@ -7,16 +7,35 @@ public class SceneLoader : MonoBehaviour
 {
     GameManager manager;
     ConditionManager conditionManager;
-
+   
 
     private void Start()
     {
         manager = GameManager.GetGameManager();
         conditionManager = manager.GetComponent<ConditionManager>();
     }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void End()
+    {
+        if (manager.endScreen != null)
+        {
+            manager.Scoring();
+            manager.endScreen.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("EndScreen is null");
+        }
     }
 
     public void StartRun(string difficulty)

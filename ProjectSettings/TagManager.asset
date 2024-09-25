@@ -8,6 +8,7 @@ TagManager:
   - OrganPrompt
   - Checklist
   - ListPrompt
+  - EndScreen
   layers:
   - Default
   - TransparentFX

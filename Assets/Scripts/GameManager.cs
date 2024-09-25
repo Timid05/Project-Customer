@@ -18,9 +18,13 @@ public class GameManager : MonoBehaviour
 
     Camera cam;
     GameObject player;
+    [SerializeField]
+    GameObject UI;
     GameObject checklistUI;
+    [SerializeField]
     GameObject checklistPrompt;
-    
+    public GameObject endScreen;
+
     ConditionManager conditionManager;
 
     [SerializeField]
@@ -30,16 +34,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject pc;
 
-    public bool inspecting;
-    public bool organGrabbed;
-    public bool checklistOpen;
-    public bool gameStarted;
+    public bool inspecting = false;
+    public bool organGrabbed = false;
+    public bool checklistOpen = false;
+    public bool gameStarted = false;
+
+    public int score;
 
     private void Awake()
     {
         if (mainManager == null)
         {
-            DontDestroyOnLoad(gameObject);
             mainManager = this;
         }
         else
@@ -53,12 +58,21 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         cam = Camera.main;
         checklistUI = GameObject.FindGameObjectWithTag("Checklist");
-        checklistPrompt = GameObject.FindGameObjectWithTag("ListPrompt");
         conditionManager = GetComponent<ConditionManager>();
-        corpse = GameObject.Find("CorpseTest");
+        endScreen = GameObject.FindGameObjectWithTag("EndScreen");
 
         correctConditions = new List<string>();
         selectedConditions = new List<string>();
+
+        if (endScreen != null)
+        {
+            endScreen.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager could not find endscreen objecct");
+        }
+
 
         if (conditionManager == null)
         {
@@ -94,12 +108,16 @@ public class GameManager : MonoBehaviour
 
         if (checklistPrompt != null)
         {
-            checklistPrompt.SetActive(false);
+            //checklistPrompt.SetActive(false);
         }
         else
         {
             Debug.LogWarning("GameManager could not find UI element with tag 'ListPrompt'");
         }
+
+
+
+        UI.SetActive(false);
     }
 
     public void EnterInspection(Vector3 corpsePos, float camDistance)
@@ -151,17 +169,12 @@ public class GameManager : MonoBehaviour
                 checklistUI.SetActive(true);
             }
         }
-
-        if (checklistOpen && Input.GetKeyDown(KeyCode.E))
-        {
-            Scoring();
-        }
     }
 
-    
-    void Scoring()
+
+    public void Scoring()
     {
-        int score = 0;
+        score = 0;
         foreach (string condition in selectedConditions)
         {
             if (correctConditions.Contains(condition))
@@ -178,6 +191,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        checklistUI.SetActive(false);
+        checklistPrompt.SetActive(false);
+
+    }
+
 
     float pcLerp = 0;
     [SerializeField]
@@ -191,7 +211,7 @@ public class GameManager : MonoBehaviour
 
         if (gameStarted)
         {
-            
+            UI.SetActive(true);
             corpse.SetActive(true);
             difficultySelector.SetActive(false);
             if (pcLerp <= 1)
@@ -202,6 +222,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            checklistPrompt.SetActive(false);
             cam.transform.position = pc.transform.position + new Vector3(0, 0.7f, -1);
         }
     }
