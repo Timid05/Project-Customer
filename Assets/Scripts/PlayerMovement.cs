@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Vector3 direction;
     GameManager manager;
+    [SerializeField]
+    private AudioPlayer audioPlayer;
 
     [SerializeField]
     float speed;
@@ -51,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
+            
             direction = -transform.right + -transform.forward;
             direction = Vector3.Normalize(direction);
         }
@@ -64,15 +67,18 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {
+                audioPlayer.WalkingNoise(false);
                 moving = false;
             }
             else
             {
+               
                 moving = true;
             }
         }
         else
         {
+           
             moving = false;
             direction = Vector3.zero;
         }
@@ -82,7 +88,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moving)
         {
+            audioPlayer.WalkingNoise(true); 
             rb.velocity = new Vector3(direction.x * speed, rb.velocity.y, direction.z * speed);
+            
         }
     }
 
@@ -98,7 +106,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb != null)
         {
+            
+            
             Movement();
         }
     }
+
+ 
+
+
+    
 }
