@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngineInternal;
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     GameObject checklistUI;
     [SerializeField]
     GameObject checklistPrompt;
+    [SerializeField]
+    GameObject whiteboardUI;
     public GameObject endScreen;
 
     ConditionManager conditionManager;
@@ -74,6 +77,11 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("GameManager could not find endscreen objecct");
         }
 
+        if (whiteboardUI == null)
+        {
+            Debug.LogWarning("Please assign whiteboard to the gamemanager");
+        }
+
 
         if (conditionManager == null)
         {
@@ -117,7 +125,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-
+        whiteboardUI.SetActive(false);
         UI.SetActive(false);
     }
 
@@ -205,6 +213,17 @@ public class GameManager : MonoBehaviour
     float pcLerpSpeed;
     private void Update()
     {
+
+        if (inspectingWhiteboard)
+        {
+            whiteboardUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            whiteboardUI.SetActive(false);
+        }
+
         if (inspectingCorpse)
         {
             InspectionInput();

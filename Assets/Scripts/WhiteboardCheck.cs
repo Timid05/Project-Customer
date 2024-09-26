@@ -17,6 +17,7 @@ public class WhiteboardCheck : MonoBehaviour
     [SerializeField]
     float offset;
 
+
     void Start()
     {
         gameManager = GameManager.GetGameManager();
@@ -49,6 +50,7 @@ public class WhiteboardCheck : MonoBehaviour
                 else
                 {
                     playerRenderer.enabled = true;
+                    Cursor.lockState = CursorLockMode.Locked;
                     cam.transform.position = player.transform.position + Vector3.up * 0.8f;
                     cam.transform.rotation = player.transform.rotation;
                     gameManager.inspectingWhiteboard = false;
