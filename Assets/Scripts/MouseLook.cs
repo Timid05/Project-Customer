@@ -28,7 +28,7 @@ public class MouseLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!manager.inspecting && manager.gameStarted)
+        if (!manager.inspectingCorpse && manager.gameStarted && !manager.inspectingWhiteboard)
         {
             xRotation += mouseX;
             yRotation -= mouseY;

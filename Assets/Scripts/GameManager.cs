@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject pc;
 
-    public bool inspecting = false;
+    public bool inspectingCorpse = false;
+    public bool inspectingWhiteboard = false;
     public bool organGrabbed = false;
     public bool checklistOpen = false;
     public bool gameStarted = false;
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         if (cam != null && player != null)
         {
-            inspecting = true;
+            inspectingCorpse = true;
             checklistPrompt.SetActive(true);
             cam.transform.position = corpsePos + Vector3.up * camDistance;
             cam.transform.LookAt(corpsePos);
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             checklistPrompt.SetActive(false);
-            inspecting = false;
+            inspectingCorpse = false;
             organGrabbed = false;
             player.GetComponent<Renderer>().enabled = true;
             cam.transform.position = player.transform.position + Vector3.up * 0.8f;
@@ -204,7 +205,7 @@ public class GameManager : MonoBehaviour
     float pcLerpSpeed;
     private void Update()
     {
-        if (inspecting)
+        if (inspectingCorpse)
         {
             InspectionInput();
         }

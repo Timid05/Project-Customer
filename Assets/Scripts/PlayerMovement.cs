@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             direction = Vector3.Normalize(direction);
         }
 
-        if (!manager.inspecting && manager.gameStarted)
+        if (!manager.inspectingCorpse && manager.gameStarted && !manager.inspectingWhiteboard)
         {
             if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
             {
@@ -86,11 +86,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (moving)
+        if (moving && !manager.inspectingCorpse && !manager.inspectingWhiteboard)
         {
-            audioPlayer.WalkingNoise(true); 
+            audioPlayer.WalkingNoise(true);
             rb.velocity = new Vector3(direction.x * speed, rb.velocity.y, direction.z * speed);
-            
+        }
+        else
+        {
+            audioPlayer.WalkingNoise(false);
         }
     }
 
