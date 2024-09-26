@@ -52,7 +52,7 @@ public class CorpseCheck : MonoBehaviour
             Debug.Log("Corpse did not find GameObject with tag 'Player'");
         }
 
-        if (relativePos.magnitude < checkDistance && !GameManager.GetGameManager().inspecting)
+        if (relativePos.magnitude < checkDistance && !GameManager.GetGameManager().inspectingCorpse)
         {
             if (prompt != null)
             {

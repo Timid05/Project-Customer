@@ -38,7 +38,7 @@ public class OrganGrab : MonoBehaviour
     {
         if (cam != null && !GameManager.GetGameManager().organGrabbed && !GameManager.GetGameManager().checklistOpen)
         {
-            if (GameManager.GetGameManager().inspecting && !grabbed)
+            if (GameManager.GetGameManager().inspectingCorpse && !grabbed)
             {
                 grabbed = true;
                 //play organ sound
@@ -77,13 +77,13 @@ public class OrganGrab : MonoBehaviour
     }
     private void Update()
     {
-        if (grabbed && GameManager.GetGameManager().inspecting)
+        if (grabbed && GameManager.GetGameManager().inspectingCorpse)
         {
             InspectingOrgan();
         }
         
 
-        if (!GameManager.GetGameManager().inspecting)
+        if (!GameManager.GetGameManager().inspectingCorpse)
         {
             grabbed = false;
             if (putBackPrompt.activeSelf)
