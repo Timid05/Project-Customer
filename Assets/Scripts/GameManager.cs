@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public List<string> correctConditions;
     public List<string> selectedConditions;
 
+    public string difficulty;
+
     static GameManager mainManager = null;
 
     Camera cam;

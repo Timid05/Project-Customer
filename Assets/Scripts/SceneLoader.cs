@@ -42,18 +42,22 @@ public class SceneLoader : MonoBehaviour
     {
         if (difficulty == "Easy")
         {
+            manager.difficulty = "Easy";
             conditionManager.numberOfConditionsToApply = 2;
         }
         if (difficulty == "Medium")
         {
+            manager.difficulty = "Medium";
             conditionManager.numberOfConditionsToApply = 3;
         }
         if (difficulty == "Hard")
         {
+            manager.difficulty = "Hard";
             conditionManager.numberOfConditionsToApply = 5;
         }
         if (difficulty == "Expert")
         {
+            manager.difficulty = "Expert";
             conditionManager.numberOfConditionsToApply = 6;
         }
 
