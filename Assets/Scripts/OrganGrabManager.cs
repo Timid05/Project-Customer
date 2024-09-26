@@ -21,6 +21,8 @@ public class OrganGrabManager : MonoBehaviour
     [SerializeField]
     private float grabSpeed = 5f;
     [SerializeField]
+    private AudioPlayer audioPlayer;
+    [SerializeField]
     private float rotateSpeed = 100f;
     private int tableSpacesUsed;
     private int maxTableSpaces = 8;
@@ -174,8 +176,10 @@ public class OrganGrabManager : MonoBehaviour
         // Move organ towards camera
         if (grabLerp < 1)
         {
+            audioPlayer.OrganNoise();
             grabLerp += grabSpeed * Time.deltaTime;
             currentOrgan.transform.position = Vector3.Lerp(currentOrgan.transform.position, grabbedPos, grabLerp);
+            
         }
 
         if (!gameManager.checklistOpen)
