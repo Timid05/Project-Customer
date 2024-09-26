@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     GameManager manager;
+    [SerializeField]
     ConditionManager conditionManager;
    
 
     private void Start()
     {
         manager = GameManager.GetGameManager();
-        conditionManager = manager.GetComponent<ConditionManager>();
     }
 
     public void LoadScene(string sceneName)

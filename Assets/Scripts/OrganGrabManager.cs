@@ -14,6 +14,8 @@ public class OrganGrabManager : MonoBehaviour
     [SerializeField]
     private GameObject putBackPrompt;
     [SerializeField]
+    GameObject putAsidePrompt;
+    [SerializeField]
     private GameObject operationTable;
 
     [SerializeField]
@@ -50,6 +52,8 @@ public class OrganGrabManager : MonoBehaviour
         {
             putBackPrompt.SetActive(false); // Deactivate the prompt at the start
         }
+
+        putAsidePrompt.SetActive(false);
 
         organStartPositions = new Dictionary<GameObject, Vector3>();
         tablePositions = new Dictionary<int, Vector3>();
@@ -102,6 +106,7 @@ public class OrganGrabManager : MonoBehaviour
             currentOrgan.transform.position = startPos;
             currentOrgan.transform.rotation = startRotation;
             putBackPrompt.SetActive(false);
+            putAsidePrompt.SetActive(false);
             grabbed = false;
         }
 
@@ -122,6 +127,7 @@ public class OrganGrabManager : MonoBehaviour
                 {
                     if (hitObject == organ || hitObject.transform.IsChildOf(organ.transform))
                     {
+                        audioPlayer.OrganNoise();
                         Debug.Log("Organ detected: " + organ.name);
 
                         currentOrgan = organ; // Set the current organ
@@ -152,6 +158,7 @@ public class OrganGrabManager : MonoBehaviour
                         grabLerp = 0;
 
                         putBackPrompt.SetActive(true); // Show prompt to put the organ back
+                        putAsidePrompt.SetActive(true);
                         gameManager.organGrabbed = true; // Set organGrabbed to true
                         break;
                     }
@@ -176,7 +183,6 @@ public class OrganGrabManager : MonoBehaviour
         // Move organ towards camera
         if (grabLerp < 1)
         {
-            audioPlayer.OrganNoise();
             grabLerp += grabSpeed * Time.deltaTime;
             currentOrgan.transform.position = Vector3.Lerp(currentOrgan.transform.position, grabbedPos, grabLerp);
             
@@ -199,6 +205,7 @@ public class OrganGrabManager : MonoBehaviour
                 grabbed = false;
                 currentOrgan = null;
                 putBackPrompt.SetActive(false);
+                putAsidePrompt.SetActive(false);
                 gameManager.organGrabbed = false; // Reset organGrabbed
             }
 
@@ -226,6 +233,7 @@ public class OrganGrabManager : MonoBehaviour
                     grabbed = false;
                     currentOrgan = null;
                     putBackPrompt.SetActive(false);
+                    putAsidePrompt.SetActive(false);
                     gameManager.organGrabbed = false;
                     break;
                 }

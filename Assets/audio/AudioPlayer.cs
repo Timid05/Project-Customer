@@ -42,7 +42,7 @@ public class AudioPlayer : MonoBehaviour
 
     public void OrganNoise()
     {
-        int randomNumber = GenerateRandomInt(1, 3);
+        int randomNumber = 1;
 
         switch (randomNumber)
         {
@@ -61,9 +61,6 @@ public class AudioPlayer : MonoBehaviour
         }
         audioSourceplayer.loop = false;
         audioSourceplayer.Play();
-
-
-
 
     }
     private bool isWalkingNoisePlaying = false;

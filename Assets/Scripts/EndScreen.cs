@@ -38,7 +38,7 @@ public class EndScreen : MonoBehaviour
     {
         correctness = (float)gameManager.score / (float)gameManager.correctConditions.Count * 100;
 
-        scoreText.text = "Your score is " + gameManager.score + " out of " + gameManager.correctConditions.Count;
+        scoreText.text = "Sick organs identified: " + gameManager.score + " out of " + gameManager.correctConditions.Count;
 
         if (correctness > 70)
         {

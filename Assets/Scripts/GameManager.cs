@@ -23,9 +23,12 @@ public class GameManager : MonoBehaviour
     GameObject player;
     [SerializeField]
     GameObject UI;
+    [SerializeField]
     GameObject checklistUI;
     [SerializeField]
     GameObject checklistPrompt;
+    [SerializeField]
+    GameObject leavePrompt;
     [SerializeField]
     GameObject whiteboardUI;
     public GameObject endScreen;
@@ -63,7 +66,6 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         cam = Camera.main;
-        checklistUI = GameObject.FindGameObjectWithTag("Checklist");
         conditionManager = GetComponent<ConditionManager>();
         endScreen = GameObject.FindGameObjectWithTag("EndScreen");
 
@@ -129,6 +131,8 @@ public class GameManager : MonoBehaviour
 
         whiteboardUI.SetActive(false);
         UI.SetActive(false);
+        leavePrompt.SetActive(false); 
+        difficultySelector.SetActive(true);
     }
 
     public void EnterInspection(Vector3 corpsePos, float camDistance)
@@ -137,6 +141,7 @@ public class GameManager : MonoBehaviour
         {
             inspectingCorpse = true;
             checklistPrompt.SetActive(true);
+            leavePrompt.SetActive(true);
             cam.transform.position = corpsePos + Vector3.up * camDistance;
             cam.transform.LookAt(corpsePos);
             player.GetComponent<Renderer>().enabled = false;
@@ -155,9 +160,10 @@ public class GameManager : MonoBehaviour
 
     public void InspectionInput()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             checklistPrompt.SetActive(false);
+            leavePrompt.SetActive(false);
             inspectingCorpse = false;
             organGrabbed = false;
             player.GetComponent<Renderer>().enabled = true;
@@ -171,12 +177,12 @@ public class GameManager : MonoBehaviour
         {
             if (checklistUI.activeSelf)
             {
-                checklistOpen = false;
+                checklistOpen = false;               
                 checklistUI.SetActive(false);
             }
             else
             {
-                checklistOpen = true;
+                checklistOpen = true;              
                 checklistUI.SetActive(true);
             }
         }

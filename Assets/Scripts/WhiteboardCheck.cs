@@ -7,6 +7,8 @@ public class WhiteboardCheck : MonoBehaviour
     GameManager gameManager;
     [SerializeField]
     GameObject player;
+    [SerializeField]
+    GameObject whiteboardPrompt;
     MeshRenderer playerRenderer;
     Camera cam;
 
@@ -29,6 +31,7 @@ public class WhiteboardCheck : MonoBehaviour
         }
 
         playerRenderer = player.GetComponent<MeshRenderer>();
+        whiteboardPrompt.SetActive(false);
     }
 
 
@@ -38,11 +41,20 @@ public class WhiteboardCheck : MonoBehaviour
 
         if (relativePos.magnitude < range)
         {
+            if (!gameManager.inspectingWhiteboard)
+            {
+                whiteboardPrompt.SetActive(true);
+            }
+            else
+            {
+                whiteboardPrompt.SetActive(false);
+            }
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!gameManager.inspectingWhiteboard)
                 {
-                    playerRenderer.enabled = false; 
+                    playerRenderer.enabled = false;                   
                     cam.transform.position = transform.position - new Vector3(0, 0, offset);
                     cam.transform.rotation = Quaternion.Euler(0, 0, 0);
                     gameManager.inspectingWhiteboard = true;
@@ -50,6 +62,7 @@ public class WhiteboardCheck : MonoBehaviour
                 else
                 {
                     playerRenderer.enabled = true;
+
                     Cursor.lockState = CursorLockMode.Locked;
                     cam.transform.position = player.transform.position + Vector3.up * 0.8f;
                     cam.transform.rotation = player.transform.rotation;
@@ -57,6 +70,11 @@ public class WhiteboardCheck : MonoBehaviour
 
                 }
             }
+           
+        }
+        else
+        {
+            whiteboardPrompt.SetActive(false);
         }
     }
 }
