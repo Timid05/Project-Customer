@@ -97,7 +97,7 @@ public class OrganGrabManager : MonoBehaviour
 
     private void Update()
     {
-        if (!gameManager.inspecting && currentOrgan != null)
+        if (!gameManager.inspectingCorpse && currentOrgan != null)
         {
             currentOrgan.transform.position = startPos;
             currentOrgan.transform.rotation = startRotation;
@@ -105,7 +105,7 @@ public class OrganGrabManager : MonoBehaviour
             grabbed = false;
         }
 
-        if (gameManager != null && gameManager.inspecting && !gameManager.organGrabbed && Input.GetMouseButtonDown(0) && !gameManager.checklistOpen)
+        if (gameManager != null && gameManager.inspectingCorpse && !gameManager.organGrabbed && Input.GetMouseButtonDown(0) && !gameManager.checklistOpen)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
