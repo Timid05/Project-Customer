@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         {
             audioPlayer.WalkingNoise(true); 
             rb.velocity = new Vector3(direction.x * speed, rb.velocity.y, direction.z * speed);
-            
+
         }
     }
 

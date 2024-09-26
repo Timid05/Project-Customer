@@ -4040,7 +4040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPositions:
-  - position: {x: 11.830318, y: 11, z: -5.0001845}
+  - position: {x: 11.830318, y: 10, z: -5.0001845}
     rotation: {x: 0.04391511, y: -0.71152467, z: 0.04344848, w: 0.69994026}
     moveSpeed: 1.5
     shakeMagnitudeX: 1
@@ -4060,7 +4060,7 @@ MonoBehaviour:
     animatorParameter: 0
     animator: {fileID: 0}
     shakeDuringTransition: 1
-  - position: {x: 10.600831, y: 11, z: -4.768242}
+  - position: {x: 10.600831, y: 10, z: -4.768242}
     rotation: {x: 0.050688542, y: -0.948215, z: 0.1888594, w: 0.2503022}
     moveSpeed: 0.92
     shakeMagnitudeX: 1
@@ -4080,7 +4080,7 @@ MonoBehaviour:
     animatorParameter: 0
     animator: {fileID: 0}
     shakeDuringTransition: 1
-  - position: {x: 7.9438405, y: 11, z: -5.293624}
+  - position: {x: 7.9438405, y: 10, z: -5.293624}
     rotation: {x: 0.032000534, y: -0.8154548, z: 0.043855626, w: 0.5762691}
     moveSpeed: 1.5
     shakeMagnitudeX: 1
@@ -4100,7 +4100,7 @@ MonoBehaviour:
     animatorParameter: 0
     animator: {fileID: 0}
     shakeDuringTransition: 1
-  - position: {x: 4.2340117, y: 11, z: -5.199714}
+  - position: {x: 4.2340117, y: 10, z: -5.199714}
     rotation: {x: 0.3076103, y: -0.3133518, z: 0.107204005, w: 0.8920167}
     moveSpeed: 1.5
     shakeMagnitudeX: 1
@@ -4120,7 +4120,7 @@ MonoBehaviour:
     animatorParameter: 0
     animator: {fileID: 0}
     shakeDuringTransition: 1
-  - position: {x: -1.511431, y: 11, z: -4.9390016}
+  - position: {x: -1.511431, y: 10, z: -4.9390016}
     rotation: {x: 0.026254654, y: -0.6746808, z: 0.02286273, w: 0.7372882}
     moveSpeed: 1.5
     shakeMagnitudeX: 1
