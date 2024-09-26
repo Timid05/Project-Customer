@@ -41,6 +41,7 @@ public class OrganGrab : MonoBehaviour
             if (GameManager.GetGameManager().inspectingCorpse && !grabbed)
             {
                 grabbed = true;
+                //play organ sound
                 grabbedPos = cam.transform.position + Vector3.down * distanceToCamera;
                 grabLerp = 0;
             }
@@ -98,6 +99,7 @@ public class OrganGrab : MonoBehaviour
             {
                 float xRotation = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime;
                 transform.Rotate(Vector3.up, -xRotation);
+                //play organ sound on cooldown
             }
         }
         else

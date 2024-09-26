@@ -34,6 +34,7 @@ public class ChecklistText : MonoBehaviour, IPointerClickHandler
             if (textLine.fontStyle == FontStyles.Normal)
             {
                 textLine.fontStyle = FontStyles.Strikethrough;
+                //play schekbox sounds
             }
             else
             {
