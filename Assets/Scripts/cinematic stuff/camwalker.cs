@@ -43,6 +43,7 @@ public class CameraFollower : MonoBehaviour
         if (target.shakeDuringTransition && fractionOfJourney < 1f)
         {
             ApplyCameraShake(target);
+            //play footsteps
         }
 
         
