@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteColor: {r: 0.14150941, g: 0.07943217, b: 0.07943217, a: 0}
   material: {fileID: 0}
-  conditionName: Large Intestine Nacrosis
+  conditionName: Large Intestine Necrosis
   organType: 5
   isDefaultState: 0
   hasCancer: 0

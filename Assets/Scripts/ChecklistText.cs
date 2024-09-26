@@ -5,30 +5,36 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class ChecklistText : MonoBehaviour, IPointerClickHandler
 {
-    TextMeshProUGUI textLine;
+    [SerializeField]
+    private TextMeshProUGUI textLine;
+    
+    private GameManager manager;
 
-    void Start()
-    {
-        textLine = GetComponent<TextMeshProUGUI>();
+    private void Awake()  {
+        if(textLine != null) {
+            textLine = GetComponent<TextMeshProUGUI>();
+        }
         textLine.fontStyle = FontStyles.Normal;
         textLine.enabled = false;
+    }
 
-        if (textLine == null)
-        {
-            Debug.LogWarning("Could not find " + name + "'s text component");
-        }
+    private void Start()
+    {
+        manager = GameManager.GetGameManager();  
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
 
-        if (GameManager.GetGameManager().checklistOpen)
+        if (manager.checklistOpen)
         {
             if (textLine.fontStyle == FontStyles.Normal)
             {
                 textLine.fontStyle = FontStyles.Strikethrough;
+                //play schekbox sounds
             }
             else
             {
@@ -39,7 +45,7 @@ public class ChecklistText : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (GameManager.GetGameManager().checklistOpen)
+        if (manager.checklistOpen)
         {
             textLine.enabled = true;
         }

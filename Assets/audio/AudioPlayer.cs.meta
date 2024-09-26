@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 3a4345cf728eb0843a803ca6fa573adc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ambience: {instanceID: 0}
+  - tick: {instanceID: 0}
+  - organGrab: {instanceID: 0}
+  - organ: {instanceID: 0}
+  - organ2: {instanceID: 0}
+  - organ3: {instanceID: 0}
+  - walking: {fileID: 8300000, guid: 051689e49f4dc5841bf2675ddffbe1c6, type: 3}
+  - playerMovement: {instanceID: 0}
+  - audioSourceplayer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

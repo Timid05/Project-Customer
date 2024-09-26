@@ -38,9 +38,10 @@ public class OrganGrab : MonoBehaviour
     {
         if (cam != null && !GameManager.GetGameManager().organGrabbed && !GameManager.GetGameManager().checklistOpen)
         {
-            if (GameManager.GetGameManager().inspecting && !grabbed)
+            if (GameManager.GetGameManager().inspectingCorpse && !grabbed)
             {
                 grabbed = true;
+                //play organ sound
                 grabbedPos = cam.transform.position + Vector3.down * distanceToCamera;
                 grabLerp = 0;
             }
@@ -76,13 +77,13 @@ public class OrganGrab : MonoBehaviour
     }
     private void Update()
     {
-        if (grabbed && GameManager.GetGameManager().inspecting)
+        if (grabbed && GameManager.GetGameManager().inspectingCorpse)
         {
             InspectingOrgan();
         }
         
 
-        if (!GameManager.GetGameManager().inspecting)
+        if (!GameManager.GetGameManager().inspectingCorpse)
         {
             grabbed = false;
             if (putBackPrompt.activeSelf)
@@ -98,6 +99,7 @@ public class OrganGrab : MonoBehaviour
             {
                 float xRotation = Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime;
                 transform.Rotate(Vector3.up, -xRotation);
+                //play organ sound on cooldown
             }
         }
         else

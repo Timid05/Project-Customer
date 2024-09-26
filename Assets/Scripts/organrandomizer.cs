@@ -4,8 +4,10 @@ using System.Linq;
 
 public class ConditionManager : MonoBehaviour
 {
+    GameManager gameManager;
+
     [SerializeField]
-    private int numberOfConditionsToApply = 3;
+    public int numberOfConditionsToApply = 3;
 
     [SerializeField]
     private int numberOfRandomCancersToApply = 2; // Amount of random cancers to apply regardless of condition
@@ -21,8 +23,15 @@ public class ConditionManager : MonoBehaviour
     // List to keep track of applied conditions for later use
     private List<AppliedConditionLog> appliedConditionsLog = new List<AppliedConditionLog>();
 
+    private void Awake()
+    {
+        enabled = false;
+    }
+
     private void Start()
     {
+        gameManager = GameManager.GetGameManager();
+
         // Initialize the dictionary
         organDictionary = new Dictionary<OrganType, List<GameObject>>();
 
@@ -102,10 +111,11 @@ public class ConditionManager : MonoBehaviour
         }
 
         // Log all applied conditions
-        Debug.Log("Applied Conditions:");
+        Debug.Log("Applied " + numberOfConditionsToApply + " Conditions");
         foreach (var log in appliedConditionsLog)
         {
-            Debug.Log($"Organ: {log.OrganName}, Category: {log.OrganType}, Condition: {log.Condition.ConditionName}");
+            //Debug.Log($"Organ: {log.OrganName}, Category: {log.OrganType}, Condition: {log.Condition.ConditionName}");
+            Debug.Log("added " + log.Condition.ConditionName);
         }
     }
 
@@ -128,57 +138,59 @@ public class ConditionManager : MonoBehaviour
         }
 
         // Log application
-        Debug.Log($"Applied condition: {condition.ConditionName} to organ: {organ.name}");
+        //Debug.Log($"Applied condition: {condition.ConditionName} to organ: {organ.name}");
+        gameManager.correctConditions.Add(condition.ConditionName);
     }
 
     private void ApplyRandomCancers()
-{
-    // Create a flat list of all organs
-    List<GameObject> allOrgans = organDictionary.Values.SelectMany(organList => organList).ToList();
-
-    // Shuffle the list to randomize the selection of organs
-    allOrgans = Shuffle(allOrgans.ToArray()).ToList();
-
-    // Apply cancer to the first 'numberOfRandomCancersToApply' organs
-    for (int i = 0; i < Mathf.Min(numberOfRandomCancersToApply, allOrgans.Count); i++)
     {
-        GameObject organ = allOrgans[i];
+        // Create a flat list of all organs
+        List<GameObject> allOrgans = organDictionary.Values.SelectMany(organList => organList).ToList();
 
-        // Get the existing log entry for this organ
-        var existingLog = appliedConditionsLog.FirstOrDefault(log => log.OrganName == organ.name);
+        // Shuffle the list to randomize the selection of organs
+        allOrgans = Shuffle(allOrgans.ToArray()).ToList();
 
-        // Get a random position on the surface of the mesh
-        Vector3 surfacePosition = GetRandomSurfacePosition(organ, out Vector3 normal);
-
-        // Instantiate the cancerPrefab at the random position and set it as a child of the organ
-        GameObject cancerObject = Instantiate(cancerPrefab, surfacePosition, Quaternion.LookRotation(normal), organ.transform);
-
-        // Optionally, adjust cancerObject's orientation to better align with the surface normal
-        cancerObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
-
-        // If there is an existing log, update its HasCancer property; otherwise, create a new log entry
-        if (existingLog != null)
+        // Apply cancer to the first 'numberOfRandomCancersToApply' organs
+        for (int i = 0; i < Mathf.Min(numberOfRandomCancersToApply, allOrgans.Count); i++)
         {
-            existingLog.HasCancer = true; // Mark cancer as applied
-            Debug.Log($"{organ} + {existingLog.HasCancer}");
-        }
-        else
-        {
-            AppliedConditionLog log = new AppliedConditionLog(organ.name, GetOrganType(organ), null, true);
-            appliedConditionsLog.Add(log); // Create and add new log entry
-            
-        }
+            GameObject organ = allOrgans[i];
 
-        Debug.Log($"Random cancer applied to organ: {organ.name}");
+            // Get the existing log entry for this organ
+            var existingLog = appliedConditionsLog.FirstOrDefault(log => log.OrganName == organ.name);
+
+            // Get a random position on the surface of the mesh
+            Vector3 surfacePosition = GetRandomSurfacePosition(organ, out Vector3 normal);
+
+            // Instantiate the cancerPrefab at the random position and set it as a child of the organ
+            GameObject cancerObject = Instantiate(cancerPrefab, surfacePosition, Quaternion.LookRotation(normal), organ.transform);
+
+            // Optionally, adjust cancerObject's orientation to better align with the surface normal
+            cancerObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, normal);
+
+            // If there is an existing log, update its HasCancer property; otherwise, create a new log entry
+            if (existingLog != null)
+            {
+                existingLog.HasCancer = true; // Mark cancer as applied
+
+                //Debug.Log($"{organ} + {existingLog.HasCancer}");
+            }
+            else
+            {
+                AppliedConditionLog log = new AppliedConditionLog(organ.name, GetOrganType(organ), null, true);
+                appliedConditionsLog.Add(log); // Create and add new log entry      
+            }
+            gameManager.correctConditions.Add(organ.name + " Cancer");
+            Debug.Log("Added " + organ.name + " Cancer");
+            //Debug.Log($"Random cancer applied to organ: {organ.name}");
+        }
     }
-}
 
-// Helper method to get the organ type from the GameObject
+    // Helper method to get the organ type from the GameObject
     private OrganType GetOrganType(GameObject organ)
-{
-    // Implement logic to determine the organ type based on the GameObject
-    return OrganType.Lung; // Replace this with actual logic.
-}
+    {
+        // Implement logic to determine the organ type based on the GameObject
+        return OrganType.Lung; // Replace this with actual logic.
+    }
     private Vector3 GetRandomSurfacePosition(GameObject organ, out Vector3 normal)
     {
         // Search for the MeshFilter in the child objects

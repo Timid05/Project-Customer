@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -10,22 +11,41 @@ public class GameManager : MonoBehaviour
         return mainManager;
     }
 
+    public List<string> correctConditions;
+    public List<string> selectedConditions;
+
     static GameManager mainManager = null;
 
     Camera cam;
     GameObject player;
+    [SerializeField]
+    GameObject UI;
     GameObject checklistUI;
+    [SerializeField]
     GameObject checklistPrompt;
+    public GameObject endScreen;
 
-    public bool inspecting;
-    public bool organGrabbed;
-    public bool checklistOpen;
+    ConditionManager conditionManager;
+
+    [SerializeField]
+    GameObject difficultySelector;
+    [SerializeField]
+    GameObject corpse;
+    [SerializeField]
+    GameObject pc;
+
+    public bool inspectingCorpse = false;
+    public bool inspectingWhiteboard = false;
+    public bool organGrabbed = false;
+    public bool checklistOpen = false;
+    public bool gameStarted = false;
+
+    public int score;
 
     private void Awake()
     {
         if (mainManager == null)
         {
-            DontDestroyOnLoad(gameObject);
             mainManager = this;
         }
         else
@@ -39,12 +59,49 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         cam = Camera.main;
         checklistUI = GameObject.FindGameObjectWithTag("Checklist");
-        checklistPrompt = GameObject.FindGameObjectWithTag("ListPrompt");
+        conditionManager = GetComponent<ConditionManager>();
+        endScreen = GameObject.FindGameObjectWithTag("EndScreen");
 
-        if (checklistUI != null) 
-        { 
-           checklistUI.SetActive(false);
-        } 
+        correctConditions = new List<string>();
+        selectedConditions = new List<string>();
+
+        if (endScreen != null)
+        {
+            endScreen.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager could not find endscreen objecct");
+        }
+
+
+        if (conditionManager == null)
+        {
+            Debug.LogError("GameManager object is missing ConditionManager script");
+        }
+        else
+        {
+            conditionManager.enabled = false;
+            corpse.SetActive(false);
+            if (corpse == null)
+            {
+                Debug.Log("deactivated, corpse is now null");
+            }
+        }
+
+        if (player != null)
+        {
+
+        }
+        else
+        {
+            Debug.LogError("GameManager could not find the player");
+        }
+
+        if (checklistUI != null)
+        {
+            checklistUI.SetActive(false);
+        }
         else
         {
             Debug.LogWarning("GameManager did not find Checklist UI");
@@ -52,19 +109,23 @@ public class GameManager : MonoBehaviour
 
         if (checklistPrompt != null)
         {
-            checklistPrompt.SetActive(false);
+            //checklistPrompt.SetActive(false);
         }
         else
         {
             Debug.LogWarning("GameManager could not find UI element with tag 'ListPrompt'");
         }
+
+
+
+        UI.SetActive(false);
     }
 
     public void EnterInspection(Vector3 corpsePos, float camDistance)
     {
         if (cam != null && player != null)
         {
-            inspecting = true;
+            inspectingCorpse = true;
             checklistPrompt.SetActive(true);
             cam.transform.position = corpsePos + Vector3.up * camDistance;
             cam.transform.LookAt(corpsePos);
@@ -72,7 +133,7 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (cam == null) 
+        if (cam == null)
         {
             Debug.Log("GameManager did not find a camera");
         }
@@ -87,7 +148,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             checklistPrompt.SetActive(false);
-            inspecting = false;
+            inspectingCorpse = false;
             organGrabbed = false;
             player.GetComponent<Renderer>().enabled = true;
             cam.transform.position = player.transform.position + Vector3.up * 0.8f;
@@ -111,10 +172,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void Scoring()
+    {
+        score = 0;
+        foreach (string condition in selectedConditions)
+        {
+            if (correctConditions.Contains(condition))
+            {
+                score++;
+            }
+        }
+
+        Debug.Log("current score is " + score + " out of " + correctConditions.Count);
+
+        foreach (string condition in correctConditions)
+        {
+            Debug.Log("correct condition: " + condition);
+        }
+    }
+
+    public void Restart()
+    {
+        checklistUI.SetActive(false);
+        checklistPrompt.SetActive(false);
+
+    }
+
+
+    float pcLerp = 0;
+    [SerializeField]
+    float pcLerpSpeed;
     private void Update()
     {
-        if (inspecting) { 
-          InspectionInput();
+        if (inspectingCorpse)
+        {
+            InspectionInput();
+        }
+
+        if (gameStarted)
+        {
+            UI.SetActive(true);
+            corpse.SetActive(true);
+            difficultySelector.SetActive(false);
+            if (pcLerp <= 1)
+            {
+                pcLerp += pcLerpSpeed / 50 * Time.fixedDeltaTime;
+                cam.transform.position = Vector3.Lerp(cam.transform.position, player.transform.position + Vector3.up * 0.8f, pcLerp);
+            }
+        }
+        else
+        {
+            checklistPrompt.SetActive(false);
+            cam.transform.position = pc.transform.position + new Vector3(0, 0.7f, -1);
         }
     }
 }

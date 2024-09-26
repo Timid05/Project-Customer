@@ -12,20 +12,24 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivity = 3;
 
     GameObject player;
+    GameManager manager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Cursor.lockState = CursorLockMode.Locked;
+        manager = GameManager.GetGameManager();
+    }
+
+    private void Update()
+    {
+        mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100 * Time.fixedDeltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100 * Time.fixedDeltaTime;
     }
 
     private void FixedUpdate()
     {
-        if (!GameManager.GetGameManager().inspecting)
+        if (!manager.inspectingCorpse && manager.gameStarted && !manager.inspectingWhiteboard)
         {
-            mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100 * Time.fixedDeltaTime;
-            mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100 * Time.fixedDeltaTime;
-
             xRotation += mouseX;
             yRotation -= mouseY;
 

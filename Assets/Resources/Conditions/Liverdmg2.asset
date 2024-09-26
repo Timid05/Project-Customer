@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteColor: {r: 0, g: 0, b: 0, a: 0}
   material: {fileID: 2100000, guid: b3b75d7cefbbb994fa0ba469a0b32e01, type: 2}
-  conditionName: Liver Cirrohsis
+  conditionName: Liver Cirrhosis
   organType: 3
   isDefaultState: 0
   hasCancer: 0
